@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="lcobucci.jwt.builder" class="Lcobucci\JWT\Builder" shared="false" />
+        <service id="jdr.jwt.abstract_builder" class="JDR\JWT\Builder" shared="false" abstract="true" >
+            <argument /> <!-- Signer -->
+            <argument /> <!-- Private key -->
+            <argument /> <!-- Token options -->
+        </service>
+
+        <service id="lcobucci.jwt.parser" class="Lcobucci\JWT\Parser" shared="false" />
+        <service id="jdr.jwt.abstract_parser" class="JDR\JWT\Parser" shared="false" abstract="true" >
+            <argument /> <!-- Signer -->
+            <argument /> <!-- Public key -->
+            <argument /> <!-- Token options -->
+        </service>
+    </services>
+
+</container>

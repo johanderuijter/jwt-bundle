@@ -1,0 +1,26 @@
+{
+    "name": "jdr/jwt-bundle",
+    "description": "Helper for lcobucci/jwt",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Johan de Ruijter",
+            "email": "dev@johanderuijter.nl"
+        }
+    ],
+    "require": {
+        "php": "^7",
+        "lcobucci/jwt": "^3.0.4",
+        "jdr/jws-ecdsa": "^0.4",
+        "jdr/jwt": "^0.0.1",
+        "symfony/http-kernel": "^2.8|^3.0",
+        "symfony/dependency-injection": "^2.8|^3.0",
+        "symfony/config": "^2.8|^3.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "JDR\\JWTBundle\\": "src"
+        }
+    }
+}
