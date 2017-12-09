@@ -114,8 +114,8 @@ class JDRJWTExtension extends Extension
             throw new \Exception('Algorithm MUST be set.');
         }
 
-        if ($default['options']) {
-            $config['options'] = $config['options'] + $default['options'];
+        if (isset($default['options'])) {
+            $config['options'] += $default['options'];
         }
 
         return $config;
