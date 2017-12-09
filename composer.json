@@ -1,7 +1,7 @@
 {
     "name": "jdr/jwt-bundle",
     "description": "Helper for lcobucci/jwt",
-    "type": "library",
+    "type": "symfony-bundle",
     "authors": [
         {
             "name": "Johan de Ruijter",
