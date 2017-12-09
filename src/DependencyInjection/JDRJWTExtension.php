@@ -2,7 +2,9 @@
 
 namespace JDR\JWTBundle\DependencyInjection;
 
+use function class_exists;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
@@ -128,7 +130,7 @@ class JDRJWTExtension extends Extension
         }
 
         $definition = 'jdr.jwt.builder';
-        if ($id != 'default') {
+        if ($id !== 'default') {
             $definition = 'jdr.jwt.builder.'.$id;
         }
 
@@ -137,8 +139,14 @@ class JDRJWTExtension extends Extension
             $passphrase,
         ]);
 
+        if (class_exists(ChildDefinition::class)) {
+            $builder = new ChildDefinition('jdr.jwt.abstract_builder');
+        } else {
+            $builder = new DefinitionDecorator('jdr.jwt.abstract_builder');
+        }
+
         $container
-            ->setDefinition($definition, new DefinitionDecorator('jdr.jwt.abstract_builder'))
+            ->setDefinition($definition, $builder)
             ->replaceArgument(0, $container->findDefinition('jdr.jwt.signer.'.strtolower($algorithm)))
             ->replaceArgument(1, $key)
             ->replaceArgument(2, $options)
@@ -154,7 +162,7 @@ class JDRJWTExtension extends Extension
         }
 
         $definition = 'jdr.jwt.parser';
-        if ($id != 'default') {
+        if ($id !== 'default') {
             $definition = 'jdr.jwt.parser.'.$id;
         }
 
@@ -162,8 +170,14 @@ class JDRJWTExtension extends Extension
             'file://'.$path,
         ]);
 
+        if (class_exists(ChildDefinition::class)) {
+            $parser = new ChildDefinition('jdr.jwt.abstract_parser');
+        } else {
+            $parser = new DefinitionDecorator('jdr.jwt.abstract_parser');
+        }
+
         $container
-            ->setDefinition($definition, new DefinitionDecorator('jdr.jwt.abstract_parser'))
+            ->setDefinition($definition, $parser)
             ->replaceArgument(0, $container->findDefinition('jdr.jwt.signer.'.strtolower($algorithm)))
             ->replaceArgument(1, $key)
             ->replaceArgument(2, $options)
